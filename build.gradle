@@ -1,23 +1,26 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.1.4'
-	id 'io.spring.dependency-management' version '1.1.3'
+	id 'java-library'
+	id 'maven-publish'
 }
 
-group = 'com.github'
-version = '0.0.1-SNAPSHOT'
+group = 'com.github.oereo'
+version = '0.0.1'
 
-java {
-	sourceCompatibility = '17'
-}
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
 	mavenCentral()
 }
 
+java {
+	withSourcesJar()
+	withJavadocJar()
+}
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.3'
 }
 
 tasks.named('test') {
