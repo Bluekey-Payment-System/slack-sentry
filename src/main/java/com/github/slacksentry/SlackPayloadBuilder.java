@@ -3,6 +3,7 @@ package com.github.slacksentry;
 import com.slack.api.model.Attachment;
 import com.slack.api.model.Field;
 import com.slack.api.webhook.Payload;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SlackPayloadBuilder {
@@ -11,6 +12,7 @@ public class SlackPayloadBuilder {
 	private final static String SLACK_ERROR_FIELD_TITLE_API_URL = "API URL";
 	private final static String SLACK_ERROR_FIELD_TITLE_ERROR_MESSAGE = "ERROR MESSAGE";
 	private final static String SLACK_ERROR_FIELD_TITLE_SENTRY_LINK = "SENTRY LINK";
+	private final List<Field> customFields = new ArrayList<>();
 
 
 	public SlackPayloadBuilder(String sentryPerformanceUrlPrefix) {
@@ -28,6 +30,13 @@ public class SlackPayloadBuilder {
 
 	public void changeSlackMessageTemplateColorCode(String slackMessageTemplateColorCode) {
 		this.SLACK_MESSAGE_TEMPLATE_COLOR_CODE = slackMessageTemplateColorCode;
+	}
+
+	public void addCustomField(String title, String value) {
+		customFields.add(Field.builder()
+				.title(title)
+				.value(value)
+				.build());
 	}
 
 	public Payload buildPayload(String name, String errorMessage, String eventId) {
@@ -49,6 +58,17 @@ public class SlackPayloadBuilder {
 												.value(SENTRY_PERFORMANCE_URL_PREFIX + eventId)
 												.build()
 								))
+								.build()
+				))
+				.build();
+	}
+
+	public Payload buildCustomPayload() {
+		return Payload.builder()
+				.attachments(List.of(
+						Attachment.builder()
+								.color(SLACK_MESSAGE_TEMPLATE_COLOR_CODE)
+								.fields(customFields)
 								.build()
 				))
 				.build();
