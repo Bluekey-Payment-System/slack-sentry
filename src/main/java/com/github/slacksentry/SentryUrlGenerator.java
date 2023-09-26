@@ -7,6 +7,8 @@ public class SentryUrlGenerator {
     private static final String SLASH = "/";
     private static final String COLON = ":";
 
+    private SentryUrlGenerator() {};
+
     public static String getSentryPerformanceUrl(String sentryAccountName, String sentryProjectName) {
         return URL_PROTOCOL +
                 COLON + SLASH + SLASH +
