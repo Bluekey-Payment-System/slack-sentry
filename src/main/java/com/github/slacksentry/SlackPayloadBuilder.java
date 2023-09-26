@@ -6,6 +6,7 @@ import com.slack.api.webhook.Payload;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class SlackPayloadBuilder {
 	private String SENTRY_PERFORMANCE_URL_PREFIX;
 	private String SLACK_MESSAGE_TEMPLATE_COLOR_CODE = "ff3399";
