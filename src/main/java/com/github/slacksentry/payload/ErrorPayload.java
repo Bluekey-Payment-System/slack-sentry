@@ -10,13 +10,13 @@ import java.util.List;
 
 public class ErrorPayload implements PayloadTemplate{
 
-    private final String sentryAccountName;
+    private final String sentryBaseUrl;
     private final String sentryProjectName;
     private final SentryTracer sentryTracer;
     private final Exception exception;
 
-    public ErrorPayload(String sentryAccountName, String sentryProjectName, SentryTracer sentryTracer, Exception exception) {
-        this.sentryAccountName = sentryAccountName;
+    public ErrorPayload(String sentryBaseUrl, String sentryProjectName, SentryTracer sentryTracer, Exception exception) {
+        this.sentryBaseUrl = sentryBaseUrl;
         this.sentryProjectName = sentryProjectName;
         this.sentryTracer = sentryTracer;
         this.exception = exception;
@@ -36,7 +36,7 @@ public class ErrorPayload implements PayloadTemplate{
     }
 
     private String getSentryPerformanceUrl() {
-        return SentryUrlGenerator.getSentryPerformanceUrl(sentryAccountName, sentryProjectName);
+        return SentryUrlGenerator.getSentryPerformanceUrl(sentryBaseUrl, sentryProjectName);
     }
 
     private PayloadFieldTemplate getAPIUrl() {
